@@ -25,32 +25,12 @@ public class Core {
         }
     }
 
-    public void planProcess() {
-        while (!arrProcess.isEmpty()) {
-            for (int i = 0; i < arrProcess.size(); i++) {
+public void start(){
+    createProcesses();
+    printListProcesses();
+Process process = new Process();
+process.planProcess(arrProcess);
+}
 
-                for (int j = 0; j < arrProcess.get(i).getArrThread().size(); j++) {
-                    int threadId = arrProcess.get(i).getArrThread().get(j).getID();
-                    int processId = arrProcess.get(i).getpID();
-                    int threadTime = arrProcess.get(i).getArrThread().get(j).getNecessaryTime();
-                    System.out.println("Поток " + threadId + " процесса " + processId + " начал выполнение");
-                    if (threadTime - time > 0) {
-                        arrProcess.get(i).getArrThread().get(j).changeNecessaryTime(time);
-                        System.out.println("Поток " + threadId + " процесса " + processId + " прерван; требуемое время: " + threadTime + "; выделяемое время: " + time + "; оставшееся время: " + (threadTime - time));
-                    }
-                    if (threadTime - time <= 0) {
-                        arrProcess.get(i).getArrThread().get(j).threadDone();
-                        arrProcess.get(i).getArrThread().remove(j);
-                        j--;
-                    }
-                }
-                if (arrProcess.get(i).getArrThread().isEmpty()) {
-                    arrProcess.get(i).processDone();
-                    arrProcess.remove(i);
-                    i--;
-                }
-            }
-        }
-    }
 
 }
